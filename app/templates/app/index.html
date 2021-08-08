@@ -1,0 +1,48 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div style="height:15px;"></div>
+<div class="jumbotron">
+    <p class="lead">Please select a player from the list below in order to view his card.</p>
+    <form class="form-horizontal" role="form">
+        <div class="form-group">
+            <div class="col-md-12">
+                <div class="row">
+                    <label for="player_select" class="col-md-2 control-label">Player: </label>
+                    <select class="form-control col-md-10" id="player_select" style="width:800px;">
+                        <option value="0">Select a player</option>
+                        <option value="1">Player 1</option>
+                        <option value="2">Player 2</option>
+                        <option value="3">Player 3</option>
+                        <option value="4">Player 4</option>
+                        <option value="5">Player 5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Getting started</h2>
+        <p>
+            Django gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Get more libraries</h2>
+        <p>The Python Package Index is a repository of software for the Python programming language.</p>
+        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Microsoft Azure</h2>
+        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
+        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+{% endblock %}
