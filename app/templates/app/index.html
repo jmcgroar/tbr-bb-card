@@ -1,48 +1,75 @@
 {% extends "app/layout.html" %}
-
+{% load static %}
 {% block content %}
+
 <div style="height:15px;"></div>
-<div class="jumbotron">
-    <p class="lead">Please select a player from the list below in order to view his card.</p>
-    <form class="form-horizontal" role="form">
-        <div class="form-group">
-            <div class="col-md-12">
-                <div class="row">
-                    <label for="player_select" class="col-md-2 control-label">Player: </label>
-                    <select class="form-control col-md-10" id="player_select" style="width:800px;">
-                        <option value="0">Select a player</option>
-                        <option value="1">Player 1</option>
-                        <option value="2">Player 2</option>
-                        <option value="3">Player 3</option>
-                        <option value="4">Player 4</option>
-                        <option value="5">Player 5</option>
+<div class="container player-select-container">
+    <form id="select_form" method="POST" class="form-horizontal" role="form">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row w-100 h-100">
+                <div class="col-md-12 d-flex align-self-center">
+                    <p style="padding-top: 5px;"><b>To view a card, please select a player from the list:&nbsp;&nbsp;</b></p>
+                    <select class="form-control" id="player_select" name="player_select" onchange="document.getElementById('select_form').submit();">
+                       {% for player_option in player_options %}
+                            <option value="{{player_option.PLAYER_KEY}}" {{player_option.STATE}}>{{player_option.NAME}}</option>
+                        {%endfor%}
                     </select>
                 </div>
             </div>
         </div>
+        <input type=hidden id="hidden_bam_id", name="hidden_bam_id" value="{{ bam_id }}">
     </form>
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Django gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://djangobook.com/django-tutorials/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.org/">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+<div class="container">
+    <div id="bb_card_row" name="bb_card_row" class="row" style="visibility:hidden;">
+        <div class="col-md-4 bbcard">
+            <div class="container">
+                <div class="row" style="height:5px;">
+                    <div class="col-md-12"></div>
+                </div>
+                <div class="row ltgray-background" style="border:none;">
+                    <div class="col-md-4 d-flex justify-content-left" style="border:none;">
+                        <img src="{% static headshot %}" alt="{{ player_bio_info.firstLastName }}" style="object-fit: none; border:none;">
+                    </div>
+                    <div class="col-md-8" style="border:none;">
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <img src="{% static team_logo %}" alt="{{player_bio_info.currentTeam.name}}" style="object-fit: none; border:none;">'
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 d-flex justify-content-center style="border:none;"">
+                                <p class="text-primary">{{ player_bio_info.primaryPosition.abbreviation }} &bull; B/T: {{ player_bio_info.batSide.code }}/{{ player_bio_info.pitchHand.code }} &bull; {{ player_bio_info.height }}/{{ player_bio_info.weight }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=col-md-12"><hr style="margin:3px;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="lead text-primary font-weight-bold" style="margin-bottom:0px;">{{ player_bio_info.fullFMLName }} #{{ player_bio_info.primaryNumber }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <span class="font-weight-bold">Nickname: </span>{% if player_bio_info.nickName %} {{player_bio_info.nickName}} {% else %} {{ player_bio_info.useName }} {% endif %}<br>
+                        <span class="font-weight-bold">Born: </span>{{player_bio_info.birthDate}} ({{ player_bio_info.currentAge }}) in {{player_bio_info.birthCity}}, {% if player_bio_info.birthStateProvince %} {{player_bio_info.birthStateProvince}} {% else %} {{player_bio_info.birthCountry}} {% endif %}<br>
+                        <span class="font-weight-bold">Education: </span>{% if player_bio_info.education.colleges %} {{ player_bio_info.education.colleges.0.name }} {% elif player_bio_info.education.highschools %} {{ player_bio_info.education.highschools.0.name }} {% else %} N/A {% endif %}<br>
+                        <span class="font-weight-bold">Draft: </span>{% if player_bio_info.drafts %} Year: {{ player_bio_info.drafts.0.year }}, Round: {{ player_bio_info.drafts.0.pickRound }}, Pick: {{ player_bio_info.drafts.0.pickNumber }}, Team: {{ player_bio_info.drafts.0.team.name }} {% else %} N/A {% endif %}<br>
+                        <span class="font-weight-bold">Debut: </span>{% if player_bio_info.mlbDebutDate %} {{ player_bio_info.mlbDebutDate }} {% else %} N/A {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 bbcard" style="overflow-x: hidden;overflow-y: scroll;">
+                {% autoescape off %}
+                    {{ player_stats_info }}
+                {% endautoescape %}
+            </div>
+        </div>
     </div>
 </div>
-
 {% endblock %}

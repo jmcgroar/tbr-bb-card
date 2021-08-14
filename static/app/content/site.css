@@ -1,0 +1,97 @@
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.player-select-container
+    {
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+    }
+
+.bbcard
+    {
+    width: 2.5in !important;
+    height: 3.5in !important;
+    border:groove;
+    border-radius: 6px;
+    }
+
+.ltgray-background
+    {
+    background: #F2F3F4
+    }
+
+#player_stats_table
+    {
+    border: none;
+    width: 100%;
+    font-size: .8rem;
+    color: #428bca;
+    }
+
+#player_stats_table > thead > tr
+    {
+    position: sticky;
+    color: white;
+    background-color: #428bca;
+   }
+
+#player_stats_table > tbody
+    {
+    overflow: auto;
+    }
+#player_stats_table > tbody > tr:nth-child(odd)
+    {
+    background: white;
+    }
+
+#player_stats_table > tbody > tr:nth-child(even)
+    {
+    background: #F2F3F4 
+    }
+
+#player_stats_table > tbody > tr:last-child
+    {
+     font-weight:500;
+    }

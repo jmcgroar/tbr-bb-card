@@ -40,3 +40,58 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.player-select-container
+    {
+    padding: .5rem .5rem;
+    margin-bottom: 1rem;
+    background-color: #e9ecef;
+    border-radius: 0.3rem;
+    }
+
+.bbcard
+    {
+    width: 2.5in !important;
+    height: 3.75in !important;
+    border:groove;
+    border-radius: 6px;
+    }
+
+.ltgray-background
+    {
+    background: #F2F3F4
+    }
+
+#player_stats_table
+    {
+    border: none;
+    width: 100%;
+    font-size: .75rem;
+    color: #428bca;
+    }
+
+#player_stats_table > thead > tr
+    {
+    position: sticky;
+    color: white;
+    background-color: #428bca;
+   }
+
+#player_stats_table > tbody
+    {
+    overflow: auto;
+    }
+#player_stats_table > tbody > tr:nth-child(odd)
+    {
+    background: white;
+    }
+
+#player_stats_table > tbody > tr:nth-child(even)
+    {
+    background: #F2F3F4 
+    }
+
+#player_stats_table > tbody > tr:last-child
+    {
+     font-weight:500;
+    }

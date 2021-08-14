@@ -114,15 +114,29 @@ STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 # MLB Stats base URL
 MLB_STATS_BASE_URL = "https://statsapi.mlb.com/api/v1/"
+# MLB Leagues REST API string
+MLB_LEAGUES_STRING = "league?sportId=1"
+# MLB Teama REST API string
+MLB_TEAMS_STRING = "teams?sportId=1"
+# Primary REST API format string.  Retrives both biographical and statistical data
+PLAYER_INFO_FORMAT_STRING = "people/{}?hydrate=currentTeam,team,education,draft,stats(group=[{}],type=[yearByYear,career])"
+# String to format the image source for the player's headshot
+PLAYER_HEADSHOT_FORMAT_STRING = "app/images/headshots/{}_80x120.jpg"
+# String to format the player's current team logo
+TEAM_LOGO_FORMAT_STRING = "app/images/logos/{}"
 
-#Sample of MLB Players for demo application
+# Sample of MLB Players for use in thisdemo application.  Using a mix of pitchers and hitters.  Also included the special situation of Shohei Otani.  He appears twice in the
+#  dropdown in the UI -- once as a hitter and again as a pitcher.  A more sophisticated version of this demo would have him listed once and the internal logic would 
+#  determine which stats to retrieve based on his primary position.
+
 SAMPLE_MLB_PLAYERS = [
-        {'BAM_ID' : '668227', 'NAME' : 'Arozarena, Randy', 'TYPE' : 'H', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '605141', 'NAME' : 'Betts, Mookie', 'TYPE' : 'H', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '594798', 'NAME' : 'deGrom, Jacob', 'TYPE' : 'P', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '665489', 'NAME' : 'Guerraro, Vlad', 'TYPE' : 'H', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '660271', 'NAME' : 'Ohtani, Shohei (Hitter)', 'TYPE' : 'H', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '660271', 'NAME' : 'Ohtani, Shohei (Pitcher)', 'TYPE' : 'P', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '453286', 'NAME' : 'Scherzer, Max', 'TYPE' : 'P', 'IMAGE' : 'xxx'},
-        {'BAM_ID' : '545361', 'NAME' : 'Trout, Mike', 'TYPE' : 'H', 'IMAGE' : 'xxx'}
+        {'PLAYER_KEY' : '0_', 'NAME' : 'Select a Player', 'TEAM_LOGO' : '', 'STATE' : ''},
+        {'PLAYER_KEY' : '668227_H', 'NAME' : 'Arozarena, Randy', 'TEAM_LOGO' : 'tb_110x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '605141_H', 'NAME' : 'Betts, Mookie', 'TEAM_LOGO' : 'lad_95x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '594798_P', 'NAME' : 'deGrom, Jacob', 'TEAM_LOGO' : 'nym_101x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '665489_H', 'NAME' : 'Guerraro, Vlad', 'TEAM_LOGO' : 'tor_97x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '660271_H', 'NAME' : 'Ohtani, Shohei (Hitting)', 'TEAM_LOGO' : 'laa_76x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '660271_P', 'NAME' : 'Ohtani, Shohei (Pitching)', 'TEAM_LOGO' : 'laa_76x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '453286_P', 'NAME' : 'Scherzer, Max', 'TEAM_LOGO' : 'lad_95x101.png', 'STATE' : ''},
+        {'PLAYER_KEY' : '545361_H', 'NAME' : 'Trout, Mike', 'TEAM_LOGO' : 'laa_76x101.png', 'STATE' : ''}
     ]
