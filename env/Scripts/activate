@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="F:\Development Projects\tbr-bb-card\env"
+VIRTUAL_ENV="F:\Development Projects\tbr_bb_card\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

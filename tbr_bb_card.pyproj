@@ -72,6 +72,12 @@
     <Content Include="app\static\app\images\headshots\605141_80x120.jpg" />
     <Content Include="app\static\app\images\headshots\668227_80x120.jpg" />
     <Content Include="app\static\app\images\headshots\660271_80x120.jpg" />
+    <Content Include="app\static\web.config">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="web.config">
+      <SubType>Code</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <Content Include="app\static\app\images\headshots\665489_80x120.jpg" />
     <Content Include="app\static\app\images\logos\laa_76x101.png" />

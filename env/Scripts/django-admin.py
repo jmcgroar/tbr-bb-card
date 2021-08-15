@@ -1,4 +1,4 @@
-#!F:\Development Projects\tbr-bb-card\env\Scripts\python.exe
+#!F:\Development Projects\tbr_bb_card\env\Scripts\python.exe
 # When the django-admin.py deprecation ends, remove this script.
 import warnings
 
