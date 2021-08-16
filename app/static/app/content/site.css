@@ -9,6 +9,14 @@ body {
     padding-right: 15px;
 }
 
+@media (min-width: 1600px)
+    {
+    .container
+        {
+        max-width: 1300px;
+        }
+    }
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
@@ -81,6 +89,17 @@ input[type="checkbox"].input-validation-error {
     {
     overflow: auto;
     }
+
+#player_stats_table > tbody > tr > td
+    {
+    text-align: right;
+    }
+
+#player_stats_table > tbody > tr > td:nth-child(-n+3)
+    {
+    text-align: left;
+    }
+
 #player_stats_table > tbody > tr:nth-child(odd)
     {
     background: white;

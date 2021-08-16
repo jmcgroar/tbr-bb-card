@@ -10,6 +10,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 import pandas as pd
+import numpy as np
 
 import app.models as models
 
@@ -79,18 +80,27 @@ def home(request):
         dfPlayerCareerStats['team_abbreviation'] = '--'
         dfPlayerCareerStats['league_abbreviation'] = '--'
 
-        # Merge team information in the Year x Year DataFrame.
+        # Merge team information into the Year x Year DataFrame.
         dfPlayerYxYStats = pd.merge(dfPlayerYxYStats, dfTeams[['id','abbreviation']], left_on='team.id', right_on='id', left_index=False, right_index=False, how='left', 
                                                     copy=True, indicator=False, validate=None)
         dfPlayerYxYStats.rename(columns={'abbreviation' : 'team_abbreviation'}, inplace=True)
 
-        # Merge league information in the Year x Year DataFrame.
+        # Merge league information into the Year x Year DataFrame.
         dfPlayerYxYStats = pd.merge(dfPlayerYxYStats, dfLeagues[['id','abbreviation']], left_on='league.id', right_on='id', left_index=False, right_index=False, how='left', 
                                                     copy=True, indicator=False, validate=None)
         dfPlayerYxYStats.rename(columns={'abbreviation' : 'league_abbreviation'}, inplace=True)
 
+        # Did this player play for more than 1 team in any season?  If so, let's fix-up the season summary row(s)
+        if ('numTeams' in dfPlayerYxYStats.columns):
+            dfPlayerYxYStats['team_abbreviation'] = dfPlayerYxYStats.apply(lambda row: row['team_abbreviation'] if np.isnan(row['numTeams']) else '[' + str(int(row['numTeams'])) + ']', axis=1)
+
+        # Fill and Nan's with '--'.  Should only be league column on summary row for season where a player played on multiple teams.
+        dfPlayerYxYStats = dfPlayerYxYStats.fillna('--')
+
         # Merge the Year x Year and Career DataFrames into a single DataFrame.
         dfPlayerStats = dfPlayerYxYStats.append(dfPlayerCareerStats)
+
+        #print(dfPlayerYxYStats.to_string())
 
         # 1. Rename DataFrame columns to abbreviations which will be used in the UI. 
         # 2. Export the DataFrame to a HTML Table with an element ID.  We'll use that ID in order to apply styling to the table using CSS classes.
